@@ -11,6 +11,7 @@ use tracing::info;
 
 mod action;
 mod form;
+mod order;
 mod param;
 mod player;
 mod role;

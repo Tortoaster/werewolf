@@ -8,6 +8,8 @@ use crate::{
 pub trait Action {
     type Params: Parameter;
 
+    fn performable_by(player: &Player, state: &State) -> bool;
+
     fn from_params(params: Self::Params) -> Self;
 
     fn perform(self, actor: &mut Player, state: &mut State);
@@ -20,6 +22,10 @@ pub struct Vision {
 
 impl Action for Vision {
     type Params = HouseNr;
+
+    fn performable_by(player: &Player, _: &State) -> bool {
+        player.role() == Role::Seer
+    }
 
     fn from_params(target: Self::Params) -> Self {
         Vision { target }
@@ -46,6 +52,10 @@ pub struct CubKill {
 impl Action for CubKill {
     type Params = (HouseNr, Role);
 
+    fn performable_by(player: &Player, _: &State) -> bool {
+        player.role() == Role::Cub
+    }
+
     fn from_params(params: Self::Params) -> Self {
         CubKill {
             target: params.0,
@@ -70,6 +80,10 @@ pub struct SleepAt {
 
 impl Action for SleepAt {
     type Params = HouseNr;
+
+    fn performable_by(player: &Player, _: &State) -> bool {
+        player.role() == Role::Hustler
+    }
 
     fn from_params(target: Self::Params) -> Self {
         SleepAt { target }

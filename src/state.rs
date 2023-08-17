@@ -1,8 +1,13 @@
-use crate::player::{HouseNr, Player};
+use crate::{
+    order::NightOrder,
+    player::{HouseNr, Player},
+};
 
 #[derive(Debug)]
 pub struct State {
     pub players: Vec<Player>,
+    phase: usize,
+    order: NightOrder,
 }
 
 impl State {
